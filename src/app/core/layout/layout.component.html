@@ -1,0 +1,21 @@
+<section class="layout-container" [class.is-mobile]="mobileQuery.matches">
+  <header>
+    <app-toolbar [sidenav]="sidenav"></app-toolbar>
+  </header>
+
+  <mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [position]="'end'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <aside>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper libero sit amet aliquet laoreet. Ut dolor dui, elementum eu viverra in, ultrices sit amet elit. In pellentesque placerat dui. Praesent metus mi, molestie eu lobortis eget, aliquam ut mi.
+      </aside>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper libero sit amet aliquet laoreet. Ut dolor dui, elementum eu viverra in, ultrices sit amet elit. In pellentesque placerat dui. Praesent metus mi, molestie eu lobortis eget, aliquam ut mi.
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>
