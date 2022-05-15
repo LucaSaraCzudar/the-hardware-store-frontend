@@ -15,5 +15,17 @@ export const products: Product[] = [
     price: 30,
     description: 'A very fine keyboard for very fine people.',
     hardwareType: HardwareType.KEYBOARD
+  },
+  {
+    name: 'Loud keyboard',
+    price: 10,
+    description: 'Cheap but works!',
+    hardwareType: HardwareType.KEYBOARD
+  },
+  {
+    name: 'RAM 8GB',
+    price: 15,
+    description: 'The fastest RAM in town!',
+    hardwareType: HardwareType.RAM
   }
 ];
