@@ -6,6 +6,7 @@ import { ProductsComponent } from './products/products.component';
 import { BannerComponent } from './banner/banner.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { FormsModule } from '@angular/forms';
     SearchComponent
   ],
   exports: [ProductItemComponent],
-  imports: [CommonModule, MaterialModule, FormsModule]
+  imports: [CommonModule, MaterialModule, FormsModule, BrowserAnimationsModule]
 })
 export class ShopModule {}
