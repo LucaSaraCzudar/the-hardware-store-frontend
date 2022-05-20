@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Product } from '../../models/product';
-import { products } from '../../mock/products.mock';
+import { ProductService } from '../../shared/services/product.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsComponent implements OnInit {
-  products: Product[] = products;
-  constructor() {}
+export class ProductsComponent {
+  products$: Observable<Product[]> = this.productService.getAllProducts();
 
-  ngOnInit(): void {}
+  constructor(private readonly productService: ProductService) {}
 }

@@ -13,9 +13,9 @@ export class ProductItemComponent implements OnInit {
   constructor(private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    if (this.product?.imageB64) {
+    if (this.product?.imageBase64) {
       this.product.image = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.product.imageB64
+        this.product.imageBase64
       );
     }
   }
