@@ -12,7 +12,7 @@
       <mat-chip color="primary" selected>{{product.price | currency:'€'}}</mat-chip>
     </mat-chip-list>
     <mat-card-actions>
-      <button mat-button>Add to cart</button>
+      <button mat-button (click)="addToCart(product)">Add to cart</button>
     </mat-card-actions>
   </mat-card>
 

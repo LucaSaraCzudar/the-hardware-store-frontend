@@ -1,12 +1,17 @@
-<app-cart-items [products]="products"></app-cart-items>
-<mat-divider></mat-divider>
-<div class="total">
-  <div class="flex-grid full-width">
-    <div class="col">
-      <h1>Total:</h1>
-    </div>
-    <div class="col align-right">
-      <p>{{products | totalPrice | currency:'€'}}</p>
+<ng-template #cartTemplate let-cartItems="cartItems">
+  <app-cart-items [products]="cartItems"></app-cart-items>
+  <mat-divider></mat-divider>
+  <div class="total">
+    <div class="flex-grid full-width">
+      <div class="col">
+        <h1>Total:</h1>
+      </div>
+      <div class="col align-right">
+        <p>{{cartItems | totalPrice | currency:'€'}}</p>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
+<ng-container
+  *ngTemplateOutlet="cartTemplate; context:{ cartItems: cartItems$ | async }"
+></ng-container>

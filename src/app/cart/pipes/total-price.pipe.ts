@@ -7,7 +7,7 @@ import { Product } from '../../models/product';
 export class TotalPricePipe implements PipeTransform {
   transform(products: Product[]): number {
     let price = 0;
-    products.forEach((p) => (price += p.price));
+    products?.forEach((p) => (price += p.price));
 
     return price;
   }
