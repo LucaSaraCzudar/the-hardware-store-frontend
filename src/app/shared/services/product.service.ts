@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from '../../models/product';
 import { finalize, Observable, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { MinimalProduct } from '../../models/minimal-product';
+import { CartItem } from '../../models/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class ProductService {
     return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
   }
 
-  getCartItems(): Observable<MinimalProduct[]> {
-    return this.http.get<MinimalProduct[]>(`${environment.apiUrl}/cart-items`);
+  getCartItems(): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(`${environment.apiUrl}/cart-items`);
   }
 
-  addCartItem(cartItem: MinimalProduct): Observable<Response> {
+  addCartItem(cartItem: CartItem): Observable<Response> {
     return this.http
       .post<Response>(`${environment.apiUrl}/cart-items`, cartItem)
       .pipe(finalize(() => this.cartUpdated$.next()));

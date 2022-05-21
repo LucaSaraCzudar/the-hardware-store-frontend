@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../shared/services/product.service';
 import { Observable, startWith, switchMap } from 'rxjs';
-import { MinimalProduct } from '../../../models/minimal-product';
+import { CartItem } from '../../../models/cart-item';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +10,7 @@ import { MinimalProduct } from '../../../models/minimal-product';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent implements OnInit {
-  cartItems$: Observable<MinimalProduct[]> | undefined;
+  cartItems$: Observable<CartItem[]> | undefined;
 
   constructor(private readonly productService: ProductService) {}
 

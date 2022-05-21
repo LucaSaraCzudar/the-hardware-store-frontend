@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductService } from '../../shared/services/product.service';
-import { MinimalProduct } from '../../models/minimal-product';
+import { CartItem } from '../../models/cart-item';
 
 @Component({
   selector: 'app-product-item',
@@ -26,11 +26,11 @@ export class ProductItemComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    const minimalProduct: MinimalProduct = {
+    const cartItem: CartItem = {
       id: product.id,
       name: product.name,
       price: product.price
     };
-    this.productService.addCartItem(minimalProduct).subscribe();
+    this.productService.addCartItem(cartItem).subscribe();
   }
 }

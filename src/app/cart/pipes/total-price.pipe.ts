@@ -1,13 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from '../../models/product';
+import { CartItem } from '../../models/cart-item';
 
 @Pipe({
   name: 'totalPrice'
 })
 export class TotalPricePipe implements PipeTransform {
-  transform(products: Product[]): number {
+  transform(products: CartItem[]): number {
     let price = 0;
-    products?.forEach((p) => (price += p.price));
+    products?.forEach((p) => {
+      price += p.price * (p.amount || 1);
+    });
 
     return price;
   }
