@@ -3,6 +3,7 @@ import { Product } from '../../../models/product';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CartItem } from '../../../models/cart-item';
 import { CartService } from '../../../shared/services/cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-item',
@@ -14,7 +15,8 @@ export class ProductItemComponent implements OnInit {
 
   constructor(
     private readonly sanitizer: DomSanitizer,
-    private readonly cartService: CartService
+    private readonly cartService: CartService,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,16 @@ export class ProductItemComponent implements OnInit {
       name: product.name,
       price: product.price
     };
-    this.cartService.addCartItem(cartItem).subscribe();
+    this.cartService.addCartItem(cartItem).subscribe(
+      () => {
+        this.snackBar.open(`${cartItem.name} added to the cart`, 'X');
+      },
+      () => {
+        this.snackBar.open(
+          `An error happened while adding the item to the cart`,
+          'X'
+        );
+      }
+    );
   }
 }
