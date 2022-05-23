@@ -41,8 +41,15 @@ export class CartService implements OnDestroy {
     this.unsubscribe.complete();
   }
 
+  loadCart(): void {
+    this.cartApiService.getCartItems().subscribe((cartItems) => {
+      this._cartItems.next(cartItems);
+      localStorage.setItem(this.CART_OPEN_KEY, 'true');
+      this._cartOpened.next(true);
+    });
+  }
+
   addCartItem(cartItem: CartItem): Observable<CartItem> {
-    console.log(cartItem);
     const existingCartItem = this._cartItems
       .getValue()
       .find((item) => item.id === cartItem.id);
@@ -60,11 +67,9 @@ export class CartService implements OnDestroy {
       .pipe(finalize(() => this._cartUpdated.next()));
   }
 
-  loadCart(): void {
-    this.cartApiService.getCartItems().subscribe((cartItems) => {
-      this._cartItems.next(cartItems);
-      localStorage.setItem(this.CART_OPEN_KEY, 'true');
-      this._cartOpened.next(true);
-    });
+  removeCartItem(cartItem: CartItem): Observable<Response> {
+    return this.cartApiService
+      .removeCartItem(cartItem.id)
+      .pipe(finalize(() => this._cartUpdated.next()));
   }
 }

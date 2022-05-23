@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CartItem } from '../../../models/cart-item';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-cart-items',
@@ -8,5 +9,11 @@ import { CartItem } from '../../../models/cart-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartItemsComponent {
-  @Input() products: CartItem[] = [];
+  @Input() items: CartItem[] = [];
+
+  constructor(private readonly cartService: CartService) {}
+
+  onRemove(cartItem: CartItem): void {
+    this.cartService.removeCartItem(cartItem).subscribe();
+  }
 }
