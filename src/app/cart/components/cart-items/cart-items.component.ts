@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Product } from '../../../models/product';
+import { CartItem } from '../../../models/cart-item';
 
 @Component({
   selector: 'app-cart-items',
@@ -8,5 +8,5 @@ import { Product } from '../../../models/product';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartItemsComponent {
-  @Input() products: Product[] = [];
+  @Input() products: CartItem[] = [];
 }

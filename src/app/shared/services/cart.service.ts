@@ -1,12 +1,70 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { CartItem } from '../../models/cart-item';
 import { CartApiService } from './cart-api.service';
+import {
+  BehaviorSubject,
+  finalize,
+  Observable,
+  startWith,
+  Subject,
+  takeUntil
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
-  constructor(private readonly cartApiService: CartApiService) {}
+export class CartService implements OnDestroy {
+  private unsubscribe = new Subject<void>();
+  private readonly CART_OPEN_KEY = 'hw_store.cart_open';
+  private readonly _cartItems = new BehaviorSubject<CartItem[]>([]);
+  readonly cartItems$ = this._cartItems.asObservable();
+  private readonly _cartUpdated = new Subject<void>();
+  readonly cartUpdated$ = this._cartUpdated.asObservable();
+  private readonly _cartOpened = new BehaviorSubject<boolean>(false);
+  readonly cartOpened$ = this._cartOpened.asObservable();
 
-  addCartItem(cartItem: CartItem): void {}
+  constructor(private readonly cartApiService: CartApiService) {
+    const isCartOpenValue: string | null = localStorage.getItem(
+      this.CART_OPEN_KEY
+    );
+    if (isCartOpenValue && JSON.parse(isCartOpenValue) === true) {
+      this._cartOpened.next(true);
+    }
+
+    this.cartUpdated$
+      .pipe(startWith(undefined), takeUntil(this.unsubscribe))
+      .subscribe(() => this.loadCart());
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  addCartItem(cartItem: CartItem): Observable<CartItem> {
+    console.log(cartItem);
+    const existingCartItem = this._cartItems
+      .getValue()
+      .find((item) => item.id === cartItem.id);
+
+    if (existingCartItem) {
+      existingCartItem.quantity! += 1;
+
+      return this.cartApiService
+        .updateQuantity(existingCartItem)
+        .pipe(finalize(() => this._cartUpdated.next()));
+    }
+
+    return this.cartApiService
+      .addCartItem(cartItem)
+      .pipe(finalize(() => this._cartUpdated.next()));
+  }
+
+  loadCart(): void {
+    this.cartApiService.getCartItems().subscribe((cartItems) => {
+      this._cartItems.next(cartItems);
+      localStorage.setItem(this.CART_OPEN_KEY, 'true');
+      this._cartOpened.next(true);
+    });
+  }
 }

@@ -31,6 +31,6 @@ export class ProductItemComponent implements OnInit {
       name: product.name,
       price: product.price
     };
-    this.cartService.addCartItem(cartItem);
+    this.cartService.addCartItem(cartItem).subscribe();
   }
 }

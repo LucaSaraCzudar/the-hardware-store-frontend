@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ProductApiService } from '../../../shop/services/product-api.service';
-import { Observable, startWith, switchMap } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CartItem } from '../../../models/cart-item';
-import { CartApiService } from '../../../shared/services/cart-api.service';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,15 +9,8 @@ import { CartApiService } from '../../../shared/services/cart-api.service';
   styleUrls: ['./cart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CartComponent implements OnInit {
-  cartItems$: Observable<CartItem[]> | undefined;
+export class CartComponent {
+  cartItems$: Observable<CartItem[]> = this.cartService.cartItems$;
 
-  constructor(private readonly cartApiService: CartApiService) {}
-
-  ngOnInit(): void {
-    this.cartItems$ = this.cartApiService.cartUpdated$.pipe(
-      startWith(undefined),
-      switchMap(() => this.cartApiService.getCartItems())
-    );
-  }
+  constructor(private readonly cartService: CartService) {}
 }

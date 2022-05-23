@@ -5,7 +5,7 @@
   <mat-list-item *ngFor="let item of products">
     <div class="flex-grid full-width">
       <div class="col">{{item.name}}</div>
-      <div class="col align-right">{{item.price | currency:'€'}}</div>
+      <div class="col align-right">{{item.price * (item.quantity || 1) | currency:'€'}}</div>
     </div>
   </mat-list-item>
 </mat-list>
