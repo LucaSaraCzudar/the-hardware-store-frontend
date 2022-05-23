@@ -18,6 +18,8 @@ export class CartService implements OnDestroy {
   private readonly CART_OPEN_KEY = 'hw_store.cart_open';
   private readonly _cartItems = new BehaviorSubject<CartItem[]>([]);
   readonly cartItems$ = this._cartItems.asObservable();
+  private readonly _cartItemsCount = new BehaviorSubject<number>(0);
+  readonly cartItemsCount$ = this._cartItemsCount.asObservable();
   private readonly _cartUpdated = new Subject<void>();
   readonly cartUpdated$ = this._cartUpdated.asObservable();
   readonly cartOpened$ = new BehaviorSubject<boolean>(false);
@@ -57,7 +59,19 @@ export class CartService implements OnDestroy {
   loadCart(): void {
     this.cartApiService.getCartItems().subscribe((cartItems) => {
       this._cartItems.next(cartItems);
+      this.countCartItems(cartItems);
     });
+  }
+
+  countCartItems(cartItems: CartItem[]): void {
+    let cartItemsCount = 0;
+    if (cartItems.length > 0) {
+      cartItemsCount = cartItems.reduce(
+        (acc, one) => acc + (one.quantity || 1),
+        0
+      );
+    }
+    this._cartItemsCount.next(cartItemsCount);
   }
 
   addCartItem(cartItem: CartItem): Observable<CartItem> {

@@ -13,6 +13,7 @@ import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
   MatSnackBarModule
 } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -27,7 +28,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule
   ],
   exports: [
     MatGridListModule,
@@ -40,7 +42,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }
