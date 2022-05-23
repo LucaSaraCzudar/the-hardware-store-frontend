@@ -1,11 +1,12 @@
 <section class="layout-container" [class.is-mobile]="mobileQuery.matches">
   <header>
-    <app-toolbar [sidenav]="sidenav"></app-toolbar>
+    <app-toolbar (toggle)="onToggle()"></app-toolbar>
   </header>
 
   <mat-sidenav-container class="sidenav-container">
 
     <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [opened]="opened$ | async"
                  [position]="'end'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <aside>

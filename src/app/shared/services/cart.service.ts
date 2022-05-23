@@ -20,20 +20,12 @@ export class CartService implements OnDestroy {
   readonly cartItems$ = this._cartItems.asObservable();
   private readonly _cartUpdated = new Subject<void>();
   readonly cartUpdated$ = this._cartUpdated.asObservable();
-  private readonly _cartOpened = new BehaviorSubject<boolean>(false);
-  readonly cartOpened$ = this._cartOpened.asObservable();
+  readonly cartOpened$ = new BehaviorSubject<boolean>(false);
 
   constructor(private readonly cartApiService: CartApiService) {
-    const isCartOpenValue: string | null = localStorage.getItem(
-      this.CART_OPEN_KEY
-    );
-    if (isCartOpenValue && JSON.parse(isCartOpenValue) === true) {
-      this._cartOpened.next(true);
-    }
-
-    this.cartUpdated$
-      .pipe(startWith(undefined), takeUntil(this.unsubscribe))
-      .subscribe(() => this.loadCart());
+    this.loadSidebarSettings();
+    this.updateSidebarSettings();
+    this.updateCart();
   }
 
   ngOnDestroy(): void {
@@ -41,11 +33,30 @@ export class CartService implements OnDestroy {
     this.unsubscribe.complete();
   }
 
+  loadSidebarSettings(): void {
+    const isCartOpenValue: string | null = localStorage.getItem(
+      this.CART_OPEN_KEY
+    );
+    if (isCartOpenValue && JSON.parse(isCartOpenValue) === true) {
+      this.cartOpened$.next(true);
+    }
+  }
+
+  updateCart(): void {
+    this.cartUpdated$
+      .pipe(startWith(undefined), takeUntil(this.unsubscribe))
+      .subscribe(() => this.loadCart());
+  }
+
+  updateSidebarSettings(): void {
+    this.cartOpened$.subscribe((val: boolean) => {
+      localStorage.setItem(this.CART_OPEN_KEY, val.toString());
+    });
+  }
+
   loadCart(): void {
     this.cartApiService.getCartItems().subscribe((cartItems) => {
       this._cartItems.next(cartItems);
-      localStorage.setItem(this.CART_OPEN_KEY, 'true');
-      this._cartOpened.next(true);
     });
   }
 
@@ -62,9 +73,13 @@ export class CartService implements OnDestroy {
         .pipe(finalize(() => this._cartUpdated.next()));
     }
 
-    return this.cartApiService
-      .addCartItem(cartItem)
-      .pipe(finalize(() => this._cartUpdated.next()));
+    return this.cartApiService.addCartItem(cartItem).pipe(
+      finalize(() => {
+        this._cartUpdated.next();
+        localStorage.setItem(this.CART_OPEN_KEY, 'true');
+        this.cartOpened$.next(true);
+      })
+    );
   }
 
   removeCartItem(cartItem: CartItem): Observable<Response> {

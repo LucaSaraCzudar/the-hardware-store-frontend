@@ -2,9 +2,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnDestroy
+  OnDestroy,
+  ViewChild
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { CartService } from '../../shared/services/cart.service';
+import { Observable } from 'rxjs';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-layout',
@@ -13,10 +17,17 @@ import { MediaMatcher } from '@angular/cdk/layout';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnDestroy {
+  @ViewChild('sidenav') sidenav: MatSidenav | null = null;
+
   mobileQuery: MediaQueryList;
+  opened$ = this.cartService.cartOpened$;
   private readonly _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly media: MediaMatcher,
+    private readonly cartService: CartService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
@@ -25,5 +36,9 @@ export class LayoutComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
-  opened = false;
+
+  onToggle(): void {
+    this.sidenav?.toggle();
+    this.opened$.next(!this.opened$.getValue());
+  }
 }

@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,5 +12,9 @@ import { MatSidenav } from '@angular/material/sidenav';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-  @Input() sidenav: MatSidenav | null = null;
+  @Output() toggle = new EventEmitter<void>();
+
+  onToggle(): void {
+    this.toggle.emit();
+  }
 }
