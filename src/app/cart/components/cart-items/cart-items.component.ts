@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-cart-items',
   templateUrl: './cart-items.component.html',
-  styles: [],
+  styleUrls: ['./cart-items.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartItemsComponent {

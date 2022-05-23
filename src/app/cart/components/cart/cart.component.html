@@ -1,7 +1,6 @@
 <ng-template #cartTemplate let-cartItems="cartItems">
   <app-cart-items [items]="cartItems"></app-cart-items>
-  <mat-divider></mat-divider>
-  <div class="total">
+  <div class="total" *ngIf="cartItems.length > 0">
     <div class="flex-grid full-width">
       <div class="col">
         <h1>Total:</h1>

@@ -2,15 +2,19 @@
   <span>Shopping Cart</span>
 </mat-toolbar>
 <mat-list>
-  <mat-list-item *ngFor="let item of items">
-    <div class="flex-grid full-width">
-      <div class="col">{{item.name}} x{{(item.quantity || 1)}}</div>
-      <div class="col align-right">
-        {{item.price * (item.quantity || 1) | currency:'€'}}
-        <button mat-icon-button aria-label="Remove item" (click)="onRemove(item)">
-          <mat-icon>delete</mat-icon>
-        </button>
+  <mat-list-item *ngIf="items.length === 0">The cart is empty.</mat-list-item>
+  <ng-container *ngFor="let item of items">
+    <mat-list-item>
+      <div class="flex-grid full-width">
+        <div class="col item">{{item.name}} x{{(item.quantity || 1)}}</div>
+        <div class="col align-right">
+          {{item.price * (item.quantity || 1) | currency:'€'}}
+          <button mat-icon-button aria-label="Remove item" (click)="onRemove(item)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-list-item>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
 </mat-list>
