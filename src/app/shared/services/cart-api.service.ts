@@ -1,34 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Product } from '../../models/product';
 import { finalize, Observable, Subject } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { CartItem } from '../../models/cart-item';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class CartApiService {
   cartUpdated$ = new Subject<void>();
 
   constructor(private readonly http: HttpClient) {}
-
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products`);
-  }
-
-  getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
-  }
 
   getCartItems(): Observable<CartItem[]> {
     return this.http.get<CartItem[]>(`${environment.apiUrl}/cart-items`);
   }
 
-  addCartItem(cartItem: CartItem): Observable<Response> {
+  addCartItem(cartItem: CartItem): Observable<CartItem> {
     return this.http
-      .post<Response>(`${environment.apiUrl}/cart-items`, cartItem)
+      .post<CartItem>(`${environment.apiUrl}/cart-items`, cartItem)
       .pipe(finalize(() => this.cartUpdated$.next()));
+  }
+
+  updateQuantity(cartItem: CartItem): Observable<CartItem> {
+    return this.http.put<CartItem>(
+      `${environment.apiUrl}/cart-items/${cartItem.id}`,
+      cartItem.quantity
+    );
   }
 
   removeCartItem(id: number): Observable<Response> {

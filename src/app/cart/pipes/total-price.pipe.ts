@@ -8,7 +8,7 @@ export class TotalPricePipe implements PipeTransform {
   transform(products: CartItem[]): number {
     let price = 0;
     products?.forEach((p) => {
-      price += p.price * (p.amount || 1);
+      price += p.price * (p.quantity || 1);
     });
 
     return price;

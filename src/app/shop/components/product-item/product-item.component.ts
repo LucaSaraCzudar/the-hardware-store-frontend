@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
+import { Product } from '../../../models/product';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ProductService } from '../../shared/services/product.service';
-import { CartItem } from '../../models/cart-item';
+import { CartItem } from '../../../models/cart-item';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-product-item',
@@ -14,7 +14,7 @@ export class ProductItemComponent implements OnInit {
 
   constructor(
     private readonly sanitizer: DomSanitizer,
-    private readonly productService: ProductService
+    private readonly cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +31,6 @@ export class ProductItemComponent implements OnInit {
       name: product.name,
       price: product.price
     };
-    this.productService.addCartItem(cartItem).subscribe();
+    this.cartService.addCartItem(cartItem);
   }
 }
