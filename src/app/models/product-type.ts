@@ -1,4 +1,4 @@
-export enum HardwareType {
+export enum ProductType {
   RAM = 'RAM',
   HARD_DISK = 'Hard disk',
   MONITOR = 'Monitor',

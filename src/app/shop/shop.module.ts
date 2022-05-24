@@ -7,13 +7,15 @@ import { BannerComponent } from './components/banner/banner.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductTypePipe } from './pipes/product-type.pipe';
 
 @NgModule({
   declarations: [
     ProductItemComponent,
     ProductsComponent,
     BannerComponent,
-    SearchComponent
+    SearchComponent,
+    ProductTypePipe
   ],
   exports: [ProductItemComponent],
   imports: [CommonModule, MaterialModule, FormsModule, BrowserAnimationsModule]
