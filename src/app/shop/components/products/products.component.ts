@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Product } from '../../../models/product';
-import { ProductApiService } from '../../services/product-api.service';
+import { ProductApiService } from '../../../shared/services/product-api.service';
 import { Observable } from 'rxjs';
 
 @Component({
