@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from '../../models/product';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { CartItem } from '../../models/cart-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductApiService {
+
   constructor(private readonly http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${environment.apiUrl}/products`);
   }
 
-  getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
+  searchProductsByName(name: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${environment.apiUrl}/products/search?name=${name}`);
   }
 }

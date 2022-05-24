@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Product } from '../../../models/product';
-import { ProductApiService } from '../../../shared/services/product-api.service';
 import { Observable } from 'rxjs';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent {
-  products$: Observable<Product[]> = this.productService.getAllProducts();
+  products$: Observable<Product[]> = this.productService.products$;
 
-  constructor(private readonly productService: ProductApiService) {}
+  constructor(private readonly productService: ProductService) {}
 }

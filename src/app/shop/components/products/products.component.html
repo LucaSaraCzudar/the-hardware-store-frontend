@@ -1,9 +1,19 @@
 <section>
   <app-banner></app-banner>
   <app-search></app-search>
-  <div class="flex-grid" *ngFor="let product of (products$ | async)">
-    <div class="col product-container">
-      <app-product-item [product]="product"></app-product-item>
+  <ng-template #productTemplate let-products='products'>
+      <span *ngIf='!products || products.length === 0'
+            class='empty'>No products to display.</span>
+    <div class='flex-grid' *ngFor='let product of products'>
+      <div class='col product-container'>
+        <app-product-item [product]='product'></app-product-item>
+      </div>
     </div>
-  </div>
+  </ng-template>
+  <ng-container
+    *ngTemplateOutlet='productTemplate; context:{ products: products$ | async }'
+  ></ng-container>
+
 </section>
+
+
