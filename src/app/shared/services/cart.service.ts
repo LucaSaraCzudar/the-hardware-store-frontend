@@ -44,16 +44,16 @@ export class CartService implements OnDestroy {
     }
   }
 
-  updateCart(): void {
-    this.cartUpdated$
-      .pipe(startWith(undefined), takeUntil(this.unsubscribe))
-      .subscribe(() => this.loadCart());
-  }
-
   updateSidebarSettings(): void {
     this.cartOpened$.subscribe((val: boolean) => {
       localStorage.setItem(this.CART_OPEN_KEY, val.toString());
     });
+  }
+
+  updateCart(): void {
+    this.cartUpdated$
+      .pipe(startWith(undefined), takeUntil(this.unsubscribe))
+      .subscribe(() => this.loadCart());
   }
 
   loadCart(): void {
