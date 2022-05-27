@@ -16,7 +16,7 @@ export class ProductApiService {
     return this.http.get<Product[]>(`${environment.apiUrl}/products`);
   }
 
-  searchProductsByName(name: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products/search?name=${name}`);
+  filterProductsByName(name: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${environment.apiUrl}/products/filters?name=${name}`);
   }
 }

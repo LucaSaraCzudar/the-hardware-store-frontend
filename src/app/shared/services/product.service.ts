@@ -25,7 +25,7 @@ export class ProductService {
     if (!name) {
       this.loadProducts();
     } else {
-      this.productApiService.searchProductsByName(name)
+      this.productApiService.filterProductsByName(name)
         .subscribe((products: Product[]) => {
           this._products.next(products);
         });
