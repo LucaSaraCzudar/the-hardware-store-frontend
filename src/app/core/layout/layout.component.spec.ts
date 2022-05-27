@@ -16,11 +16,17 @@ describe('LayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSidenavModule, RouterTestingModule,
-        BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatBadgeModule],
+      imports: [
+        HttpClientTestingModule,
+        MatSidenavModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatBadgeModule
+      ],
       declarations: [LayoutComponent, ToolbarComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

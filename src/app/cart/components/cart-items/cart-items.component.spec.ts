@@ -15,10 +15,14 @@ describe('CartItemsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule, MatToolbarModule, MatListModule],
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        MatListModule
+      ],
       declarations: [CartItemsComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -32,7 +36,10 @@ describe('CartItemsComponent', () => {
   });
 
   it('should display a snackbar after removing cart items', () => {
-    const removeCartItemSpy = spyOn(component['cartService'], 'removeCartItem').and.returnValue(of(new Response()));
+    const removeCartItemSpy = spyOn(
+      component['cartService'],
+      'removeCartItem'
+    ).and.returnValue(of(new Response()));
     const snackbarSpy = spyOn(component['snackBar'], 'open');
     component.onRemove(cartItemMock);
     expect(removeCartItemSpy).toHaveBeenCalledWith(cartItemMock);
@@ -41,11 +48,17 @@ describe('CartItemsComponent', () => {
 
   it('should display a snackbar after failing to remove cart items', () => {
     const errorResponse = new HttpErrorResponse({ status: 400 });
-    const removeCartItemSpy = spyOn(component['cartService'], 'removeCartItem').and.returnValue(throwError(() => errorResponse));
+    const removeCartItemSpy = spyOn(
+      component['cartService'],
+      'removeCartItem'
+    ).and.returnValue(throwError(() => errorResponse));
     const snackbarSpy = spyOn(component['snackBar'], 'open');
     component.onRemove(cartItemMock);
     expect(removeCartItemSpy).toHaveBeenCalledWith(cartItemMock);
-    expect(snackbarSpy).toHaveBeenCalledWith('An error happened while removing the item from the cart', 'X');
+    expect(snackbarSpy).toHaveBeenCalledWith(
+      'An error happened while removing the item from the cart',
+      'X'
+    );
   });
 });
 

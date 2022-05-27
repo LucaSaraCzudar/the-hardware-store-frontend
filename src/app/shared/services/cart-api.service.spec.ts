@@ -1,7 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CartApiService } from './cart-api.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { Product } from '../../models/product';
 import { environment } from '../../../environments/environment';
 import { CartItem } from '../../models/cart-item';
@@ -23,9 +26,7 @@ describe('CartApiService', () => {
   });
 
   it('should call the API to get all cart items', () => {
-    const mockCartItems: CartItem[] = [
-      mockCartItem1, mockCartItem2
-    ];
+    const mockCartItems: CartItem[] = [mockCartItem1, mockCartItem2];
 
     service.getCartItems().subscribe((res) => {
       expect(res).toEqual(mockCartItems);
@@ -33,7 +34,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/cart-items`,
+      url: `${environment.apiUrl}/cart-items`
     });
 
     req.flush(mockCartItems);
@@ -46,7 +47,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'POST',
-      url: `${environment.apiUrl}/cart-items`,
+      url: `${environment.apiUrl}/cart-items`
     });
     expect(req.request.body).toEqual(mockCartItem1);
 
@@ -61,7 +62,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'PUT',
-      url: `${environment.apiUrl}/cart-items/${id}`,
+      url: `${environment.apiUrl}/cart-items/${id}`
     });
     expect(req.request.body).toEqual(2);
 
@@ -77,7 +78,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: `${environment.apiUrl}/cart-items/${id}`,
+      url: `${environment.apiUrl}/cart-items/${id}`
     });
 
     req.flush(response);
@@ -96,4 +97,4 @@ const mockCartItem2: CartItem = {
   name: 'name2',
   quantity: 2,
   price: 10
-}
+};

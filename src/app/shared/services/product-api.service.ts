@@ -9,7 +9,6 @@ import { CartItem } from '../../models/cart-item';
   providedIn: 'root'
 })
 export class ProductApiService {
-
   constructor(private readonly http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
@@ -17,6 +16,8 @@ export class ProductApiService {
   }
 
   filterProductsByName(name: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products/filters?name=${name}`);
+    return this.http.get<Product[]>(
+      `${environment.apiUrl}/products/filters?name=${name}`
+    );
   }
 }

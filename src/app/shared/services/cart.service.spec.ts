@@ -17,25 +17,23 @@ const mockCartItem2: CartItem = {
   name: 'name2',
   quantity: 2,
   price: 10
-}
-
+};
 
 describe('CartService', () => {
   let service: CartService;
-  let cartApiServiceMock = jasmine.createSpyObj('cartApiService',
-    {
-      'getCartItems': of([mockCartItem1, mockCartItem2]),
-      'addCartItem': of(mockCartItem1),
-      'updateQuantity': of(mockCartItem2),
-      'removeCartItem': of(new Response()),
-    });
+  let cartApiServiceMock = jasmine.createSpyObj('cartApiService', {
+    getCartItems: of([mockCartItem1, mockCartItem2]),
+    addCartItem: of(mockCartItem1),
+    updateQuantity: of(mockCartItem2),
+    removeCartItem: of(new Response())
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
           provide: CartApiService,
-          useValue: cartApiServiceMock,
+          useValue: cartApiServiceMock
         }
       ]
     });
@@ -78,7 +76,10 @@ describe('CartService', () => {
     service.loadCart();
     tick();
     expect(cartApiServiceMock.getCartItems).toHaveBeenCalled();
-    expect(service['_cartItems'].getValue()).toEqual([mockCartItem1, mockCartItem2]);
+    expect(service['_cartItems'].getValue()).toEqual([
+      mockCartItem1,
+      mockCartItem2
+    ]);
     expect(spy).toHaveBeenCalledWith([mockCartItem1, mockCartItem2]);
   }));
 

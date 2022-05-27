@@ -1,7 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ProductApiService } from './product-api.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { Product } from '../../models/product';
 import { ProductType } from '../../models/product-type';
 import { environment } from '../../../environments/environment';
@@ -23,9 +26,7 @@ describe('ProductServiceService', () => {
   });
 
   it('should call the API to get all products', () => {
-    const mockProducts: Product[] = [
-      mockProduct1, mockProduct2
-    ];
+    const mockProducts: Product[] = [mockProduct1, mockProduct2];
 
     service.getAllProducts().subscribe((res) => {
       expect(res).toEqual(mockProducts);
@@ -33,16 +34,14 @@ describe('ProductServiceService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/products`,
+      url: `${environment.apiUrl}/products`
     });
 
     req.flush(mockProducts);
   });
 
   it('should call the API to get filtered products', () => {
-    const mockProducts: Product[] = [
-      mockProduct1
-    ];
+    const mockProducts: Product[] = [mockProduct1];
     const name = 'mock';
 
     service.filterProductsByName(name).subscribe((res) => {
@@ -51,7 +50,7 @@ describe('ProductServiceService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/products/filters?name=${name}`,
+      url: `${environment.apiUrl}/products/filters?name=${name}`
     });
 
     req.flush(mockProducts);
@@ -74,4 +73,4 @@ const mockProduct2: Product = {
   price: 1,
   productType: ProductType.KEYBOARD,
   description: 'description2'
-}
+};

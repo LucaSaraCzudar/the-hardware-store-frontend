@@ -15,17 +15,17 @@ export class ProductService {
   }
 
   loadProducts(): void {
-    this.productApiService.getAllProducts()
-      .subscribe((products: Product[]) => {
-        this._products.next(products);
-      })
+    this.productApiService.getAllProducts().subscribe((products: Product[]) => {
+      this._products.next(products);
+    });
   }
 
   searchProducts(name: string): void {
     if (!name) {
       this.loadProducts();
     } else {
-      this.productApiService.filterProductsByName(name)
+      this.productApiService
+        .filterProductsByName(name)
         .subscribe((products: Product[]) => {
           this._products.next(products);
         });

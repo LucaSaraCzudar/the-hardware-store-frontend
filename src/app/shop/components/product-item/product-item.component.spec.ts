@@ -17,8 +17,7 @@ describe('ProductItemComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSnackBarModule],
       declarations: [ProductItemComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -28,20 +27,29 @@ describe('ProductItemComponent', () => {
   });
 
   it('should display a snackbar after removing adding products', () => {
-    const addCartItemSpy = spyOn(component['cartService'], 'addCartItem').and.returnValue(of(cartItemMock));
-    const snackbarSpy = spyOn(component['snackBar'], 'open');
-    component.addToCart(productMock)
-    expect(addCartItemSpy).toHaveBeenCalledWith(cartItemMock);
-    expect(snackbarSpy).toHaveBeenCalledWith('mock added to the cart', 'X');
-  })
-
-  it('should display a snackbar after failing to add cart items', () => {
-    const errorResponse = new HttpErrorResponse({ status: 500 });
-    const addCartItemSpy = spyOn(component['cartService'], 'addCartItem').and.returnValue(throwError(() => errorResponse));
+    const addCartItemSpy = spyOn(
+      component['cartService'],
+      'addCartItem'
+    ).and.returnValue(of(cartItemMock));
     const snackbarSpy = spyOn(component['snackBar'], 'open');
     component.addToCart(productMock);
     expect(addCartItemSpy).toHaveBeenCalledWith(cartItemMock);
-    expect(snackbarSpy).toHaveBeenCalledWith('An error happened while adding the item to the cart', 'X');
+    expect(snackbarSpy).toHaveBeenCalledWith('mock added to the cart', 'X');
+  });
+
+  it('should display a snackbar after failing to add cart items', () => {
+    const errorResponse = new HttpErrorResponse({ status: 500 });
+    const addCartItemSpy = spyOn(
+      component['cartService'],
+      'addCartItem'
+    ).and.returnValue(throwError(() => errorResponse));
+    const snackbarSpy = spyOn(component['snackBar'], 'open');
+    component.addToCart(productMock);
+    expect(addCartItemSpy).toHaveBeenCalledWith(cartItemMock);
+    expect(snackbarSpy).toHaveBeenCalledWith(
+      'An error happened while adding the item to the cart',
+      'X'
+    );
   });
 });
 
@@ -52,7 +60,7 @@ const productMock: Product = {
   productType: ProductType.CPU,
   description: 'description',
   imageBase64: 'image'
-}
+};
 const cartItemMock: CartItem = {
   name: 'mock',
   id: 'id',

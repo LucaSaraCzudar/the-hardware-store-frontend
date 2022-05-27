@@ -15,10 +15,15 @@ describe('ProductsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        BrowserAnimationsModule
+      ],
       declarations: [ProductsComponent, BannerComponent, SearchComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

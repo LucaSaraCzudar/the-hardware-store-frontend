@@ -22,21 +22,20 @@ const mockProduct2: Product = {
   price: 1,
   productType: ProductType.KEYBOARD,
   description: 'description2'
-}
+};
 
 describe('ProductService', () => {
   let service: ProductService;
-  let productApiServiceMock = jasmine.createSpyObj('productApiService',
-    {
-      'getAllProducts': of([mockProduct1, mockProduct2]),
-      'filterProductsByName': of([mockProduct1])
-    });
+  let productApiServiceMock = jasmine.createSpyObj('productApiService', {
+    getAllProducts: of([mockProduct1, mockProduct2]),
+    filterProductsByName: of([mockProduct1])
+  });
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
           provide: ProductApiService,
-          useValue: productApiServiceMock,
+          useValue: productApiServiceMock
         }
       ]
     });
@@ -48,10 +47,13 @@ describe('ProductService', () => {
   });
 
   it('should load products', fakeAsync(() => {
-      service.loadProducts();
-      expect(productApiServiceMock.getAllProducts).toHaveBeenCalled();
-      tick();
-      expect(service['_products'].getValue()).toEqual([mockProduct1, mockProduct2]);
+    service.loadProducts();
+    expect(productApiServiceMock.getAllProducts).toHaveBeenCalled();
+    tick();
+    expect(service['_products'].getValue()).toEqual([
+      mockProduct1,
+      mockProduct2
+    ]);
   }));
 
   it('should search products', fakeAsync(() => {
@@ -61,9 +63,10 @@ describe('ProductService', () => {
     expect(productApiServiceMock.filterProductsByName).not.toHaveBeenCalled();
 
     service.searchProducts('name');
-    expect(productApiServiceMock.filterProductsByName).toHaveBeenCalledWith('name');
+    expect(productApiServiceMock.filterProductsByName).toHaveBeenCalledWith(
+      'name'
+    );
     tick();
     expect(service['_products'].getValue()).toEqual([mockProduct1]);
   }));
 });
-

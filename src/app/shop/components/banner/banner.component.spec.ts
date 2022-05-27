@@ -10,9 +10,8 @@ describe('BannerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
-      declarations: [ BannerComponent ]
-    })
-    .compileComponents();
+      declarations: [BannerComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -13,8 +13,7 @@ describe('ToolbarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatToolbarModule, MatIconModule],
       declarations: [ToolbarComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
