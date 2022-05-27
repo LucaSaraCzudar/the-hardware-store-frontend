@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { CartService } from '../../shared/services/cart.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -20,7 +20,7 @@ export class LayoutComponent implements OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav | null = null;
 
   mobileQuery: MediaQueryList;
-  opened$ = this.cartService.cartOpened$;
+  opened$: BehaviorSubject<boolean> = this.cartService.cartOpened$;
   private readonly _mobileQueryListener: () => void;
 
   constructor(

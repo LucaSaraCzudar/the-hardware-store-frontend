@@ -2,8 +2,8 @@
   <app-banner></app-banner>
   <app-search></app-search>
   <ng-template #productTemplate let-products='products'>
-      <span *ngIf='!products || products.length === 0'
-            class='empty'>No products to display.</span>
+    <span *ngIf='!products || products.length === 0'
+          class='empty'>No products to display.</span>
     <div class='flex-grid' *ngFor='let product of products'>
       <div class='col product-container'>
         <app-product-item [product]='product'></app-product-item>

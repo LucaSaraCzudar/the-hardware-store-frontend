@@ -1,7 +1,5 @@
 <section class="layout-container" [class.is-mobile]="mobileQuery.matches">
-  <header>
-    <app-toolbar (toggle)="onToggle()"></app-toolbar>
-  </header>
+  <app-toolbar (toggle)="onToggle()"></app-toolbar>
 
   <mat-sidenav-container class="sidenav-container">
 
@@ -16,9 +14,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <div class="content">
+      <main class="content">
         <router-outlet></router-outlet>
-      </div>
+      </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </section>

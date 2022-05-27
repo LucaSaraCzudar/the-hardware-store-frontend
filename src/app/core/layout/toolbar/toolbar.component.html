@@ -1,9 +1,11 @@
-<mat-toolbar color="primary" class="toolbar">
-  <h1 class="app-name">Smart Hardware Shop</h1>
-  <button mat-icon-button (click)="onToggle()" class="cart-icon">
-    <mat-icon [matBadge]="cartItemsCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
-    <span class="cdk-visually-hidden">
+<header>
+  <mat-toolbar color="primary" class="toolbar">
+    <h1 class="app-name">Smart Hardware Shop</h1>
+    <button mat-icon-button (click)="onToggle()" class="cart-icon">
+      <mat-icon [matBadge]="cartItemsCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
+      <span class="cdk-visually-hidden">
       Shopping cart
     </span>
-  </button>
-</mat-toolbar>
+    </button>
+  </mat-toolbar>
+</header>
