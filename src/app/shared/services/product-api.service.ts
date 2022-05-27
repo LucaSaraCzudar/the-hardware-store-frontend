@@ -12,12 +12,12 @@ export class ProductApiService {
   constructor(private readonly http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products`);
+    return this.http.get<Product[]>(`${environment.productsApiUrl}`);
   }
 
   filterProductsByName(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${environment.apiUrl}/products/filters?name=${name}`
+      `${environment.productsApiUrl}/filters?name=${name}`
     );
   }
 }

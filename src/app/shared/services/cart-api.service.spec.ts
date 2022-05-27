@@ -34,7 +34,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/cart-items`
+      url: `${environment.cartApiUrl}`
     });
 
     req.flush(mockCartItems);
@@ -47,7 +47,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'POST',
-      url: `${environment.apiUrl}/cart-items`
+      url: `${environment.cartApiUrl}`
     });
     expect(req.request.body).toEqual(mockCartItem1);
 
@@ -62,7 +62,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'PUT',
-      url: `${environment.apiUrl}/cart-items/${id}`
+      url: `${environment.cartApiUrl}/${id}`
     });
     expect(req.request.body).toEqual(2);
 
@@ -78,7 +78,7 @@ describe('CartApiService', () => {
 
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: `${environment.apiUrl}/cart-items/${id}`
+      url: `${environment.cartApiUrl}/${id}`
     });
 
     req.flush(response);

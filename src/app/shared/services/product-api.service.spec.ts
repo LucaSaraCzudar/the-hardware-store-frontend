@@ -34,7 +34,7 @@ describe('ProductServiceService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/products`
+      url: `${environment.productsApiUrl}`
     });
 
     req.flush(mockProducts);
@@ -50,7 +50,7 @@ describe('ProductServiceService', () => {
 
     const req = httpController.expectOne({
       method: 'GET',
-      url: `${environment.apiUrl}/products/filters?name=${name}`
+      url: `${environment.productsApiUrl}/filters?name=${name}`
     });
 
     req.flush(mockProducts);

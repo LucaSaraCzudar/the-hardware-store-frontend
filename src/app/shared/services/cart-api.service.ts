@@ -11,24 +11,24 @@ export class CartApiService {
   constructor(private readonly http: HttpClient) {}
 
   getCartItems(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${environment.apiUrl}/cart-items`);
+    return this.http.get<CartItem[]>(`${environment.cartApiUrl}`);
   }
 
   addCartItem(cartItem: CartItem): Observable<CartItem> {
     return this.http.post<CartItem>(
-      `${environment.apiUrl}/cart-items`,
+      `${environment.cartApiUrl}`,
       cartItem
     );
   }
 
   updateQuantity(cartItem: CartItem): Observable<CartItem> {
     return this.http.put<CartItem>(
-      `${environment.apiUrl}/cart-items/${cartItem.id}`,
+      `${environment.cartApiUrl}/${cartItem.id}`,
       cartItem.quantity
     );
   }
 
   removeCartItem(id: string): Observable<Response> {
-    return this.http.delete<Response>(`${environment.apiUrl}/cart-items/${id}`);
+    return this.http.delete<Response>(`${environment.cartApiUrl}/${id}`);
   }
 }
